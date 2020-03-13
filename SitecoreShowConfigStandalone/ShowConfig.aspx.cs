@@ -24,28 +24,18 @@ namespace SitecoreShowConfigStandalone
             var ruleCollection = new NameValueCollection();
             var empty = string.Empty;
 
-            var configurationRules = Sitecore.Context.ConfigurationRules;
-            var strArray = configurationRules?.GetRuleDefinitionNames()?.Select(name =>
-                name?.ToUpperInvariant()
-            ).ToArray() ?? new string[0];
-
+            // injecting the configRulesContext isn't working, so we are just always relying on rules from the query string
             foreach (var allKey in this.Request.QueryString.AllKeys)
             {
-                if (allKey == "layer")
-                    empty = this.Request.QueryString[allKey];
-                else if (strArray.Contains(allKey.ToUpperInvariant()))
-                    ruleCollection.Add($"{allKey}:{RuleBasedConfigReader.RuleDefineSuffix}", this.Request.QueryString[allKey]);
+                ruleCollection.Add($"{allKey}:{RuleBasedConfigReader.RuleDefineSuffix}", this.Request.QueryString[allKey]);
             }
 
-            // var stuff = Factory.GetConfiguration();
-            //var xmlDocument = GetXmlDocument(ruleCollection, empty);
-            //var xmlDocument = ruleCollection.Keys.Count != 0 || empty != string.Empty ? GetXmlDocument(ruleCollection, empty) : Factory.GetConfiguration();
-            var config = GetXmlDocument(ruleCollection, empty);
+            var xmlDocument = GetRuleBasedConfiguration(ruleCollection, empty);
 
-            return config;
+            return xmlDocument;
         }
 
-        private XmlDocument GetXmlDocument(NameValueCollection ruleCollection, string layers)
+        private XmlDocument GetRuleBasedConfiguration(NameValueCollection ruleCollection, string layers)
         {
             var reader = new RuleBasedConfigReader(GetIncludeFiles(layers.Split(new[]
             {
