@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.Configuration;
 using System.Linq;
 using System.Reflection;
 using System.Web.UI;
@@ -24,10 +25,25 @@ namespace SitecoreShowConfigStandalone
             var ruleCollection = new NameValueCollection();
             var empty = string.Empty;
 
-            // injecting the configRulesContext isn't working, so we are just always relying on rules from the query string
-            foreach (var allKey in this.Request.QueryString.AllKeys)
+            // if there are query string params, read the query string.
+            if (this.Request.QueryString.HasKeys())
             {
-                ruleCollection.Add($"{allKey}:{RuleBasedConfigReader.RuleDefineSuffix}", this.Request.QueryString[allKey]);
+                // injecting the configRulesContext isn't working, so we are just always relying on rules from the query string
+                foreach (var allKey in this.Request.QueryString.AllKeys)
+                {
+                    ruleCollection.Add($"{allKey}:{RuleBasedConfigReader.RuleDefineSuffix}",
+                        this.Request.QueryString[allKey]);
+                }
+            }
+            // otherwise, read the web.config
+            else
+            {
+                var appSettings = ConfigurationManager.AppSettings.AllKeys.Where(key => key.Contains(":define"));
+
+                foreach (var key in appSettings)
+                {
+                    ruleCollection.Add(key, ConfigurationManager.AppSettings[key]);
+                }
             }
 
             var xmlDocument = GetRuleBasedConfiguration(ruleCollection, empty);
