@@ -1,0 +1,32 @@
+version: "2.4"
+
+services:
+  monitor:
+    image: rahnemann/windows-hosts-writer:1.3-nanoserver-${NANOSERVER_VERSION}
+    volumes:
+      - C:\windows\system32\drivers\etc:C:\driversetc
+      - source: '\\.\pipe\docker_engine'
+        target: '\\.\pipe\docker_engine'
+        type: npipe
+      
+  standalone:
+    image: ${REGISTRY}sitecore-standalone-showconfig:9.3
+    build:
+      context: ../
+      args:
+        BASE_IMAGE: mcr.microsoft.com/dotnet/framework/aspnet:4.8-windowsservercore-${WINDOWSSERVERCORE_VERSION}
+        BUILD_IMAGE: mcr.microsoft.com/dotnet/framework/sdk:4.8
+    environment:
+      SITECORE_APPSETTINGS_SEARCH:DEFINE: "Solr"
+      SITECORE_APPSETTINGS_ROLE:DEFINE: "Standalone"
+    volumes:
+      - .\src\App_Config:C:\inetpub\wwwroot\App_Config
+    networks:
+      default:
+        aliases:
+          - standalone.dev.local
+
+networks:
+  default:
+    external:
+      name: nat
