@@ -19,8 +19,14 @@ ADD https://dotnetbinaries.blob.core.windows.net/servicemonitor/2.0.1.10/Service
 WORKDIR /inetpub/wwwroot
 COPY --from=build C:\out\website .
 
+# Remove Sitecore Assemblies, so they aren't distributed
+RUN Remove-Item -Path C:/inetpub/wwwroot/bin/Sitecore.*.dll
+
 WORKDIR C:\tools
+RUN curl.exe -sS -L -o c:\\tools\\nuget.exe https://dist.nuget.org/win-x86-commandline/v5.2.0/nuget.exe
 COPY docker/tools/ ./
+COPY SitecoreShowConfigStandalone/nuget.config ./
+COPY SitecoreShowConfigStandalone/packages.config ./
 
 EXPOSE 80
 ENTRYPOINT ["powershell", "C:\\tools\\Startup.ps1"]
