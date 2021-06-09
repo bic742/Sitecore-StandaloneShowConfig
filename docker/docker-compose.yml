@@ -10,7 +10,7 @@ services:
         type: npipe
       
   standalone:
-    image: ${REGISTRY}sitecore-standalone-showconfig:9.3
+    image: ${REGISTRY}sitecore-standalone-showconfig:9.3-${WINDOWSSERVERCORE_VERSION}
     build:
       context: ../
       args:
