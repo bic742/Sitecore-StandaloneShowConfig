@@ -17,7 +17,7 @@ Read this to determine the process: https://www.xcentium.com/blog/2018/02/25/sta
 1. Drop your App_Config files into the website root
 1. Navigate to the `/showconfig.aspx` of your site
 
-### Docker
+### Docker (do it yourself)
 
 **NOTE: This assumes you have Docker for Windows running. Check out [Rob's post](http://rockpapersitecore.com/2019/10/yet-another-sitecore-docker-series-part-2-running-docker/) to get set up**
 
@@ -27,6 +27,13 @@ Read this to determine the process: https://www.xcentium.com/blog/2018/02/25/sta
 1. Drop your App_Config files into the `/docker/src` folder
 1. Run `docker-compose up -d`
 1. Navigate to [http://standalone.dev.local/showconfig.aspx](http://standalone.dev.local/showconfig.aspx)
+
+### Docker (I did it for you!)
+
+1. `docker pull bic74287/sitecore-standalone-showconfig`
+1. `docker run -d -p 80:80 --volume=path/to/app_config:C:\inetpub\wwwroot\app_config bic74287/sitecore-standalone-showconfig:9.3-20H2`
+
+**NOTE: You still have to mount an App_Config folder**
 
 ## Rule Based Configuration Supported!
 
