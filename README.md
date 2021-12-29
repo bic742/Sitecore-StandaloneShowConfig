@@ -30,8 +30,8 @@ Read this to determine the process: https://www.xcentium.com/blog/2018/02/25/sta
 
 ### Docker (I did it for you!)
 
-1. `docker pull bic74287/sitecore-standalone-showconfig`
-1. `docker run -d -p 80:80 --volume=path/to/app_config:C:\inetpub\wwwroot\app_config bic74287/sitecore-standalone-showconfig:9.3-20H2`
+1. `docker pull bic74287/sitecore-standalone-showconfig:10.2.0-20H2`
+1. `docker run -d -p 80:80 --volume=path/to/app_config:C:\inetpub\wwwroot\app_config bic74287/sitecore-standalone-showconfig:10.2.0-20H2`
 
 **NOTE: You still have to mount an App_Config folder**
 

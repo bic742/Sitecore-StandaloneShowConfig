@@ -1,28 +1,28 @@
 {
     "tags": [
       {
-        "tag": "bic74287/sitecore-standalone-showconfig:9.3-ltsc2019",
+        "tag": "bic74287/sitecore-standalone-showconfig:10.2.0-ltsc2019",
         "buildOptions": [
           "--build-arg BUILD_IMAGE=mcr.microsoft.com/dotnet/framework/sdk:4.8",
           "--build-arg BASE_IMAGE=mcr.microsoft.com/dotnet/framework/aspnet:4.8-windowsservercore-ltsc2019"
         ]
       },
       {
-        "tag": "bic74287/sitecore-standalone-showconfig:9.3-1909",
+        "tag": "bic74287/sitecore-standalone-showconfig:10.2.0-1909",
         "buildOptions": [
           "--build-arg BUILD_IMAGE=mcr.microsoft.com/dotnet/framework/sdk:4.8",
           "--build-arg BASE_IMAGE=mcr.microsoft.com/dotnet/framework/aspnet:4.8-windowsservercore-1909"
         ]
       },
       {
-        "tag": "bic74287/sitecore-standalone-showconfig:9.3-2004",
+        "tag": "bic74287/sitecore-standalone-showconfig:10.2.0-2004",
         "buildOptions": [
           "--build-arg BUILD_IMAGE=mcr.microsoft.com/dotnet/framework/sdk:4.8",
           "--build-arg BASE_IMAGE=mcr.microsoft.com/dotnet/framework/aspnet:4.8-windowsservercore-2004"
         ]
       },
       {
-        "tag": "bic74287/sitecore-standalone-showconfig:9.3-20H2",
+        "tag": "bic74287/sitecore-standalone-showconfig:10.2.0-20H2",
         "buildOptions": [
           "--build-arg BUILD_IMAGE=mcr.microsoft.com/dotnet/framework/sdk:4.8",
           "--build-arg BASE_IMAGE=mcr.microsoft.com/dotnet/framework/aspnet:4.8-windowsservercore-20H2"
