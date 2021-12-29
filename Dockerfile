@@ -6,10 +6,11 @@ FROM ${BUILD_IMAGE} as build
 SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 
 WORKDIR C:\build
-COPY SitecoreShowConfigStandalone ./
+COPY SitecoreShowConfigStandalone.sln ./
+COPY SitecoreShowConfigStandalone ./SitecoreShowConfigStandalone
 
-RUN nuget restore -PackagesDirectory /packages -ConfigFile ./nuget.config
-RUN msbuild .\SitecoreShowConfigStandalone.csproj /p:Configuration=Release /p:DeployOnBuild=True /p:DeployDefaultTarget=WebPublish /p:WebPublishMethod=FileSystem /p:PublishUrl=C:\out\website
+RUN nuget restore SitecoreShowConfigStandalone.sln -PackagesDirectory /packages -ConfigFile ./SitecoreShowConfigStandalone/nuget.config
+RUN msbuild .\SitecoreShowConfigStandalone\SitecoreShowConfigStandalone.csproj /p:Configuration=Release /p:DeployOnBuild=True /p:DeployDefaultTarget=WebPublish /p:WebPublishMethod=FileSystem /p:PublishUrl=C:\out\website
 
 FROM ${BASE_IMAGE} as base
 SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
